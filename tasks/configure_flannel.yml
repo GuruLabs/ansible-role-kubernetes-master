@@ -19,16 +19,16 @@
 - name: Configure etcd port in Firewall 
   firewalld:
     zone: internal
-    port: 2379/tcp
+    port: 2379-2380/tcp
     permanent: yes
     state: enabled
     immediate: yes
 
-- name: Add hosts to internal group
+- name: Add nodes and master to internal group
   firewalld:
     zone: internal
     source: "{{ item }}"
     permanent: yes
     state: enabled
     immediate: yes
-  with_items: "{{ groups['k8s-nodes'] }}"
+  with_items: "{{ groups['k8s-nodes'] + groups['k8s-master'] }}"
