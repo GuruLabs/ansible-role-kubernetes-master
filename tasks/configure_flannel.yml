@@ -15,3 +15,18 @@
 - name: Configure subnet
   command: curl -L http://localhost:2379/v2/keys/atomic01/network/config -XPUT --data-urlencode value@/tmp/flanneld-conf.json
   when: flannelconf.changed
+
+- name: Configure etcd port in Firewall 
+  firewalld:
+    zone: internal
+    port: 2379/tcp
+    permanent: yes
+    state: enabled
+
+- name: Add hosts to internal group
+  firewalld:
+    zone: internal
+    source: "{{ item }}"
+    permanent: yes
+    state: enabled
+  with_items: "{{ group['k8s-nodes'] }}"
