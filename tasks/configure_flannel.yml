@@ -22,6 +22,7 @@
     port: 2379/tcp
     permanent: yes
     state: enabled
+    immediate: yes
 
 - name: Add hosts to internal group
   firewalld:
@@ -29,4 +30,5 @@
     source: "{{ item }}"
     permanent: yes
     state: enabled
+    immediate: yes
   with_items: "{{ groups['k8s-nodes'] }}"
