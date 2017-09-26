@@ -27,6 +27,14 @@
     regexp: "^KUBE_MASTER"
   notify: restart k8s
 
+- name: Configure Kubernetes service port for Firewall
+  firewalld:
+    zone: public 
+    port: 8080/tcp
+    permanent: yes
+    state: enabled
+    immediate: yes
+
 - name: apiserver | listen address
   lineinfile:
     dest: /etc/kubernetes/apiserver
