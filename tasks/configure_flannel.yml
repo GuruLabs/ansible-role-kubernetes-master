@@ -29,4 +29,4 @@
     source: "{{ item }}"
     permanent: yes
     state: enabled
-  with_items: "{{ group['k8s-nodes'] }}"
+  with_items: "{{ groups['k8s-nodes'] }}"
