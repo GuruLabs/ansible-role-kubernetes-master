@@ -32,3 +32,4 @@
     state: enabled
     immediate: yes
   with_items: "{{ groups['k8s-nodes'] + groups['k8s-master'] }}"
+  notify: restart firewalld
